@@ -1,0 +1,34 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: x4growth-dashboard
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - x4growth-network
+
+  # Opcional: Adicionar API backend se necessário
+  # api:
+  #   build:
+  #     context: ./api
+  #     dockerfile: Dockerfile
+  #   container_name: x4growth-api
+  #   restart: unless-stopped
+  #   ports:
+  #     - "3001:3001"
+  #   environment:
+  #     - NODE_ENV=production
+  #     - PORT=3001
+  #     - FB_ACCESS_TOKEN=${FB_ACCESS_TOKEN}
+  #   networks:
+  #     - x4growth-network
+
+networks:
+  x4growth-network:
+    driver: bridge
